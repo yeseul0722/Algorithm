@@ -9,10 +9,7 @@ dy = [0, 1, 0, -1]
 def bfs():
     while queue:
         y, x = queue.popleft()
-        if visited[y][x] != "FIRE":
-            flag = visited[y][x]
-        else:
-            flag = "FIRE"
+        flag = visited[y][x]
         for k in range(4):
             ny = y + dy[k]
             nx = x + dx[k]
