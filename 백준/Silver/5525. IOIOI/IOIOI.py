@@ -1,21 +1,20 @@
-import sys
-input = sys.stdin.readline
-
-n = int(input())
-m = int(input())
-s = list(input().rstrip())
-cnt = 0
-
-for i in range(m):
-    if s[i] == 'I':
-        temp = 1
-        for j in range(i + 1, m):
-            if s[j] != s[j - 1]:
-                temp += 1
-                if temp == n * 2 + 1:
-                    cnt += 1
-                    break
-            else:
-                break
-
+N = int(input())  
+M = int(input())  
+S = input()  
+  
+  
+cnt = 0  
+  
+i = 0  
+pattern = 0  
+while i < M-2:  
+    if S[i:i+3] == 'IOI':  
+        pattern +=1  
+        if pattern == N:  
+            cnt += 1  
+            pattern -= 1  
+        i += 2  
+    else:  
+        pattern = 0  
+        i += 1  
 print(cnt)
