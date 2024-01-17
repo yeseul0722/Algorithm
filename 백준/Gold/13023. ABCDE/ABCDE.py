@@ -1,36 +1,35 @@
 import sys
-from collections import deque
-
 input = sys.stdin.readline
-sys.setrecursionlimit(100000)
 
-n, m = map(int , input().split())
-visited = [False]*(n)
-adjacent = [ [] for _ in range(n) ]
-arrive = False
+
+def dfs(num, depth):
+    global flag
+    visited[num] = True
+    if depth == 5:
+        flag = True
+        return
+    for i in node[num]:
+        if not visited[i]:
+            dfs(i, depth + 1)
+    visited[num] = False
+
+
+n, m = map(int, input().split())
+node = [[] for _ in range(n)]
+visited = [False] * n
+flag = False
 
 for _ in range(m):
-    a,b = map(int, input().split())
-    adjacent[a].append(b)
-    adjacent[b].append(a)
-
-def dfs(start , depth):
-    global arrive
-    visited[start]=True
-    if depth==5:
-        arrive = True
-        return
-    for i in adjacent[start]:
-        if visited[i] == False:
-            dfs(i , depth+1)
-    visited[start]=False
+    a, b = map(int, input().split())
+    node[a].append(b)
+    node[b].append(a)
 
 for i in range(n):
-    dfs(i ,1)
-    if arrive:
+    dfs(i, 1)
+    if flag:
         break
 
-if arrive:
+if flag:
     print(1)
 else:
     print(0)
