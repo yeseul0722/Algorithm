@@ -4,7 +4,7 @@ input = sys.stdin.readline
 
 def recur(num):
     if len(ans) == m:
-        print(*ans)
+        print(' '.join(map(str,ans)))
         return
     for i in range(n):
         ans.append(lst[i])
