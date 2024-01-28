@@ -3,25 +3,23 @@ input = sys.stdin.readline
 
 n = int(input())
 
-def promising(num):
-    for k in range(num):
-        if(graph[k] == graph[num] or abs(graph[k] - graph[num]) == abs(k - num)):
-            return False
-    return True
 
-
-result = 0
-graph = [0] * n
-
-def recur(num):
-    global result
+def dfs(num):
+    global ans
     if num == n:
-        result += 1
-    else:
-        for i in range(n):
-            graph[num] = i
-            if promising(num):
-                recur(num + 1)
-                
-recur(0)
-print(result)
+        ans += 1
+        return
+
+    for j in range(n):
+        if v1[j] == v2[num + j] == v3[num - j] == 0: # 열/대각선 퀸 없는 경우
+            v1[j] = v2[num + j] = v3[num - j] = 1
+            dfs(num + 1)
+            v1[j] = v2[num + j] = v3[num - j] = 0
+
+
+ans = 0
+v1 = [0] * n
+v2 = [0] * (2 * n)
+v3 = [0] * (2 * n)
+dfs(0)
+print(ans)
