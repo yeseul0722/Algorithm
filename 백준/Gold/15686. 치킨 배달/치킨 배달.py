@@ -34,8 +34,8 @@ board = []
 for _ in range(n):
     board.append(list(map(int, input().split())))
 
-chicken = deque([])
-house = deque([])
+chicken = deque()
+house = deque()
 
 select = deque([])
 for y in range(n):
@@ -44,6 +44,7 @@ for y in range(n):
             house.append((y, x))
         elif board[y][x] == 2:
             chicken.append((y, x))
+
 
 k = len(chicken)
 ans = n * 2 * len(house)
