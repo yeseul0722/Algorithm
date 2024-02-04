@@ -34,21 +34,28 @@ def bfs():
     ans = max(cnt, ans)
 
 
-def dfs(num):
-    if num == 3:
+def dfs(num, cnt):
+    if cnt == 3:
         bfs()
         return
 
-    for y in range(n):
-        for x in range(m):
-            if board[y][x] == 0:
-                board[y][x] = 1
-                dfs(num + 1)
-                board[y][x] = 0
+    for i in range(num, CNT):
+        y, x = lst[i]
+        board[y][x] = 1
+        dfs(i + 1, cnt + 1)
+        board[y][x] = 0
 
 
 n, m = map(int, input().split())
 board = [list(map(int, input().split())) for _ in range(n)]
+lst = []
+for y in range(n):
+    for x in range(m):
+        if board[y][x] == 0:
+            lst.append((y, x))
+
+CNT = len(lst)
+
 ans = 0
-dfs(0)
+dfs(0, 0)
 print(ans)
