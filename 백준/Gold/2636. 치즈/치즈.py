@@ -2,46 +2,48 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-n,m = map(int,input().split())
-graph = []
-for i in range(n):
-    graph.append(list(map(int,input().split())))
 
-dx = [1,-1,0,0]
-dy = [0,0,1,-1]
-ans = []
+dy = [1, 0, -1, 0]
+dx = [0, -1, 0, 1]
+
 
 def bfs():
-    q = deque()
-    q.append([0,0])
-    visited[0][0] = 1
     cnt = 0
-   
-    while q:
-        x,y = q.popleft()
+    queue = deque()
+    queue.append((0, 0))
+    visited[0][0] = True
+    while queue:
+        y, x = queue.popleft()
         for i in range(4):
-            nx = x + dx[i]
             ny = y + dy[i]
-            if 0<=nx<n and 0<=ny<m and visited[nx][ny]==0:
-                if graph[nx][ny] == 0:
-                    visited[nx][ny] = 1
-                    
-                    q.append([nx,ny])
-                elif graph[nx][ny] == 1:
-                   
-                    graph[nx][ny] = 0
-                    visited[nx][ny] = 1
+            nx = x + dx[i]
+            if 0 <= ny < n and 0 <= nx < m and not visited[ny][nx]:
+                if board[ny][nx] == 0:
+                    visited[ny][nx] = True
+                    queue.append((ny, nx))
+                else:
+                    board[ny][nx] = 0
+                    visited[ny][nx] = True
                     cnt += 1
+
     ans.append(cnt)
     return cnt
 
+
+n, m = map(int, input().split())
+board = []
+ans = []
+for _ in range(n):
+    data = list(map(int, input().split()))
+    board.append(data)
+
 time = 0
-while 1:
-    time +=1
-   
-    visited = [[0]*m for _ in range(n)]
-    cnt = bfs() 
+while True:
+    time += 1
+    visited = [[False] * m for _ in range(n)]
+    cnt = bfs()
     if cnt == 0:
         break
-print(time-1)
+
+print(time - 1)
 print(ans[-2])
