@@ -7,10 +7,10 @@ for _ in range(n):
     lst.append(int(input()))
 
 lst.sort()
-ans = 0
+ans = []
 
 for i in lst:
-    ans = max(ans, i * n)
+    ans.append(i * n)
     n -= 1
 
-print(ans)
+print(max(ans))
