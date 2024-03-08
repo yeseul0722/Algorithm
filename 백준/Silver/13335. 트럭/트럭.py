@@ -1,23 +1,18 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 n, w, l = map(int, input().split())
-trucks = deque(list(list(map(int, input().split()))))
-bridge = deque([0] * w)
+trucks = list(list(map(int, input().split())))
+bridge = [0] * w
 time = 0
 
 while bridge:
     time += 1
-    bridge.popleft()
+    bridge.pop(0)
     if trucks:
         if sum(bridge) + trucks[0] <= l:
-            bridge.append(trucks.popleft())
+            bridge.append(trucks.pop(0))
         else:
             bridge.append(0)
 
 print(time)
-
-
-
-
