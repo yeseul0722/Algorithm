@@ -1,15 +1,20 @@
-N, K = map(int, input().split())  
-numbers = list(map(int, input().split()))  
-left, right = 0, 0  
+import sys
+input = sys.stdin.readline
 
-counter = [0] * (max(numbers) + 1)  
-answer = 0  
-while right < N:  
-    if counter[numbers[right]] < K:  
-        counter[numbers[right]] += 1  
-        right += 1  
-    else:  
-        counter[numbers[left]] -= 1  
-        left += 1  
-    answer = max(answer, right - left)  
-print(answer)
+n, k = map(int, input().split())
+lst = list(map(int, input().split()))
+check = [0] * (max(lst) + 1)
+
+lp, rp = 0, 0
+ans = 0
+
+while rp < n:
+    if check[lst[rp]] < k:
+        check[lst[rp]] += 1
+        rp += 1
+    else:
+        check[lst[lp]] -= 1
+        lp += 1
+    ans = max(ans, rp - lp)
+
+print(ans)
