@@ -1,19 +1,9 @@
 def solution(A,B):
     answer = 0
     A.sort()
-    B.sort()
+    B.sort(reverse = True)
     
-    for _ in range(len(A)):
-        minA = A[0]
-        minB = B[0]
-        
-        if minA <= minB:
-            answer += minA * B[-1]
-            A.pop(0)
-            B.pop()
-        else:
-            answer += minB * A[-1]
-            B.pop(0)
-            A.pop()
+    for i in range(len(A)):
+        answer += A[i] * B[i]
     
     return answer
