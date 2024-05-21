@@ -20,15 +20,12 @@ def solution(fees, records):
         fee = 0
         total_time = 0
         if records[1][0] == True:
-            print(records)
             for record in range(1, len(records[1])):
                 total_time += records[1][record]
             total_time -= fees[0]
         else:
             if len(records[1]) >= 3:
                 for record in range(1, len(records[1]) - 1):
-                    print(record)
-                    print(records[1][record])
                     total_time += records[1][record]
             total_time += 1439 - records[1][-1] - fees[0]
         
