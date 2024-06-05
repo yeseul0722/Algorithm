@@ -1,39 +1,26 @@
-import copy
 from collections import deque
 def solution(s):
     answer = 0
     queue = deque(s)
 
     for _ in range(len(s)):
-        string = queue.popleft()
-        queue.append(string)
-        copy_q = copy.deepcopy(queue)
         stack = deque()
-        stack.append(copy_q.popleft())
-        
-        while copy_q:
-            temp = copy_q.popleft()
-            if temp == '(' or temp == '[' or temp == '{':
-                stack.append(temp)
-            elif temp == ')':
-                if len(stack) == 0 or not stack[-1] == '(':
-                    stack.append(temp)
-                    break
-                else:
+        for i in range(len(s)):
+            if len(stack) > 0:
+                if stack[-1] == '(' and queue[i] == ')':
                     stack.pop()
-            elif temp == '}':
-                if len(stack) == 0 or not stack[-1] == '{':
-                    stack.append(temp)
-                    break
-                else:
+                elif stack[-1] == '{' and queue[i] == '}':
                     stack.pop()
-            elif temp == ']':
-                if len(stack) == 0 or not stack[-1] == '[':
-                    stack.append(temp)
-                    break
-                else:
+                elif stack [-1] == '[' and queue[i] == ']':
                     stack.pop()
+                else:
+                    stack.append(queue[i])
+            else:
+                stack.append(queue[i])
+                
         if len(stack) == 0:
             answer += 1
-
+            
+        queue.append(queue.popleft())
+        
     return answer
