@@ -1,10 +1,8 @@
-import copy
 def solution(numbers):
-    n = len(numbers)
-    answer = [-1] * n
-    stack = []   
+    answer = [-1] * len(numbers)
+    stack = []
     
-    for i in range(n):
+    for i in range(len(numbers)):
         while stack and numbers[stack[-1]] < numbers[i]:
             answer[stack.pop()] = numbers[i]
         stack.append(i)
