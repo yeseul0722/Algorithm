@@ -1,11 +1,12 @@
 import sys
 from collections import deque
 def solution(board):
-    
+    answer = 0
     max_num = sys.maxsize
+    print(max_num)
     m = len(board[0])
     n = len(board)
-    visited = [[max_num] * m for _ in range(n)]
+    visited = [[-1] * m for _ in range(n)]
     dy = [1, 0, -1, 0]
     dx = [0, 1, 0, -1]
     
@@ -21,18 +22,12 @@ def solution(board):
     while queue:
         y, x = queue.popleft()
         for i in range(4):
-            ny, nx = y, x
-            while 0 <= ny + dy[i] < n and 0 <= nx + dx[i] < m and board[ny + dy[i]][nx + dx[i]] != 'D':
-                ny += dy[i]
-                nx += dx[i]
-            
-            if visited[y][x] + 1 < visited[ny][nx]:
+            ny = y + dy[i]
+            nx = x + dx[i]
+            if 0 <= ny < n and 0 <= nx < m and visited[ny][nx] == -1 and not board[ny][nx] == 'D':
                 visited[ny][nx] = visited[y][x] + 1
                 queue.append((ny, nx))
-                
-            if(ny, nx) == (gy, gx):
-                    for row in visited:
-                        print(row)
-                    return visited[y][x] + 1
-                  
-    return -1
+    
+    for row in visited:
+        print(row)
+    return visited[gy][gx]
