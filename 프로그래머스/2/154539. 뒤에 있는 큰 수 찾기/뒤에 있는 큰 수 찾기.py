@@ -1,9 +1,12 @@
 def solution(numbers):
-    answer = [-1] * len(numbers)
-    stack = []
+    n = len(numbers)
+    answer = [-1] * n
+    stack = [0]
     
-    for i in range(len(numbers)):
+    for i in range(1, n):
         while stack and numbers[stack[-1]] < numbers[i]:
-            answer[stack.pop()] = numbers[i]
+            answer[stack[-1]] = numbers[i]
+            stack.pop()
         stack.append(i)
+
     return answer
