@@ -1,21 +1,16 @@
-from collections import deque
 def solution(skill, skill_trees):
     answer = 0
-
-    for skill_tree in skill_trees:
-        queue = deque(skill)
-        flag = True
-
-        for char in skill_tree:
-            if not char in queue:
-                continue
-            else:
-                if char == queue[0]:
-                    queue.popleft()
-                else:
-                    flag = False
-                    break
-        if flag:
+    lst = []
+    for s in skill_trees:
+        temp = ''
+        for i in s:
+            if i in skill:
+                temp += i
+        lst.append(temp)
+        
+    for k in lst:
+        n = len(k)
+        if k == skill[:n]:
             answer += 1
-
+            
     return answer
