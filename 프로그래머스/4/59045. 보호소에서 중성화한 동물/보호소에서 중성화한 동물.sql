@@ -1,0 +1,7 @@
+SELECT A.ANIMAL_ID, 
+       A.ANIMAL_TYPE,
+       A.NAME
+FROM ANIMAL_INS A, ANIMAL_OUTS B
+WHERE A.ANIMAL_ID = B.ANIMAL_ID
+AND A.SEX_UPON_INTAKE NOT IN ('Spayed Female', 'Neutered Male')
+AND B.SEX_UPON_OUTCOME IN ('Spayed Female', 'Neutered Male')
