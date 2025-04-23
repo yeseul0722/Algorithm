@@ -1,38 +1,43 @@
 import sys
+from collections import deque
+
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-map = [list(map(int, input().split())) for _ in range(n)]
-visited = [[False] * m for __ in range(n)]
-
-cnt = 0
-max_num = 0
-
-dy = [0, 1, 0, -1]
-dx = [1, 0, -1, 0]
-def bfs(y, x):
-    size = 1
-    q = [(y, x)]
+def bfs(now):
+    q = deque([now])
+    tmp = 1
     while q:
-        ey, ex = q.pop(0)
+        y, x = q.popleft()
         for k in range(4):
-            ny = ey + dy[k]
-            nx = ex + dx[k]
+            ny = y + dy[k]
+            nx = x + dx[k]
             if 0 <= ny < n and 0 <= nx < m:
-                if map[ny][nx] == 1 and visited[ny][nx] == False:
+                if not visited[ny][nx] and board[ny][nx] == 1:
                     visited[ny][nx] = True
-                    q.append((ny, nx))
-                    size += 1
-    return size
+                    tmp += 1
+                    q.append([ny, nx])
+    return tmp
 
+board = []
+ans = []
+dy = [1, 0, -1, 0]
+dx = [0, 1, 0, -1]
 
-for j in range(n):
-    for i in range(m):
-        if map[j][i] == 1 and visited[j][i] == False:
-            cnt += 1
-            visited[j][i] = True
-            max_num = max(max_num, bfs(j, i))
+n, m = map(int, input().split())
+for _ in range(n):
+    board.append(list(map(int, input().split())))
 
+visited = [[False] * m for _ in range(n)]
 
-print(cnt)
-print(max_num)
+for y in range(n):
+    for x in range(m):
+        if not visited[y][x] and board[y][x] == 1:
+            visited[y][x] = True
+            cnt = bfs([y, x])
+            ans.append(cnt)
+
+print(len(ans))
+if not ans:
+    print(0)
+else:
+    print(max(ans))
