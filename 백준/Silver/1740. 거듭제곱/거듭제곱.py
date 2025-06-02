@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 bin_num = bin(n)
 bin_num = bin_num[2:] # 이진수로 변환했기 때문에 0b 제거
