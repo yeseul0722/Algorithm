@@ -1,8 +1,8 @@
 from collections import deque
 def solution(bridge_length, weight, truck_weights):
     answer = 0
-    bridge = deque([0] * bridge_length)
     current_weight = 0
+    bridge = deque([0] * bridge_length)
     
     while truck_weights:
         answer += 1
