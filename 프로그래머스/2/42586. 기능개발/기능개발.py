@@ -1,23 +1,21 @@
 from collections import deque
+import math
+
 def solution(progresses, speeds):
     answer = []
-    lst = deque()
-    temp = 0
-    now = 0
-    for i in range(len(progresses)):
-        lst.append(progresses[i] + speeds[i])
-    while len(lst) >= 0:
-        if lst[0] >= 100:
-            lst.popleft()
-            temp += 1
-            if len(lst) == 0:
-                answer.append(temp)
-                break
-            now += 1
-        else:
-            for i in range(len(lst)):
-                lst[i] += speeds[now + i]
-            if temp > 0:
-                answer.append(temp)
-            temp = 0
+    queue = deque([])
+    n = len(progresses)
+    
+    for i in range(n):
+        p = math.ceil((100 - progresses[i]) / speeds[i])
+        queue.append(p)
+        
+    while queue:
+        cnt = 1
+        f = queue.popleft()
+        while queue and queue[0] <= f:
+            queue.popleft()
+            cnt += 1
+        answer.append(cnt)
+        
     return answer
